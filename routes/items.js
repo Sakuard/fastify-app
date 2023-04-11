@@ -1,5 +1,12 @@
+const { getItem, getItems } = require('../controllers/items')
 
-const items = require('../Items')
+const Item = {
+  type: 'object',
+  properties: {
+    id: {type: 'string'},
+    name: {type: 'string'}
+  }
+}
 
 // Options for get all items
 const getItemsOpts = {
@@ -7,45 +14,26 @@ const getItemsOpts = {
     response: {
       200: {
         type: 'array', 
-        items: {
-          type: 'object',
-          properties: {
-            // id: {type: 'integer'},
-            id: {type: 'string'},
-            name: {type: 'string'}
-          }
-        }
+        items: Item
       }
     }
-  }
+  },
+  handler: getItems,
 }
 
 const getItemOpts = {
   schema: {
     response: {
-      200: {
-        type: 'object',
-        properties: {
-          id: {type: 'string'},
-          name: {type: 'string'}
-        }
-      }
+      200: Item
     }
-  }
+  },
+  handler: getItem,
 }
 function itemRoutes (fastify, options, done) {
   // Get all items
-  fastify.get('/items', getItemsOpts, (req, res) => {
-    res.send(items)
-  });
+  fastify.get('/items', getItemsOpts);
   // Get single item
-  fastify.get('/items/:id', getItemOpts, (req, res) => {
-    const {id} = req.params;
-  
-    const item = items.find(item => item.id === id)
-  
-    res.send(item)
-  });
+  fastify.get('/items/:id', getItemOpts);
 
   done();
 }
