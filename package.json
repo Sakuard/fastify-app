@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "dotenv": "^16.0.3",
-    "fastify": "^4.15.0",
-    "fastify-swagger": "^5.2.0",
+    "fastify": "3.18.0",
+    "fastify-swagger": "4.7.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
