@@ -35,4 +35,15 @@ app.get('/',{
   return { hello: 'world'}
 });
 
-await app.listen({ port: PORT})
+// await app.listen({ port: PORT})
+const start = async() => {
+  try {
+    await app.listen(PORT, '0.0.0.0');
+    app.log.info(`Server running on PORT:${PORT}`)
+  } catch (err) {
+    app.log.error(err);
+    process.exit(1);
+  }
+}
+
+start();
