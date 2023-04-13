@@ -1,23 +1,38 @@
-require('dotenv').config();
-const fastify = require('fastify')({ logger: true })
-fastify.register(require('fastify-swagger'), {
-  exposeRoute: true,
-  routePrefix: '/docs',
-  swagger: {
-    info: { title: 'fastify-api' },
-  },
-})
-fastify.register(require('./routes/items'))
+import dotenv from 'dotenv';
+dotenv.config();
+import fastify from 'fastify';
+import swagger from '@fastify/swagger';
+import swaggerUI from '@fastify/swagger-ui';
+import { SwaggerTheme } from 'swagger-themes';
+import itemRoutes from './routes/items.js';
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT
+const app = fastify({ logger: true})
 
-const start = async () => {
-  try {
-    await fastify.listen(PORT)
-  } catch (error) {
-    fastify.log.error(error)
-    process.exit(1)
+await app.register(swagger);
+await app.register(itemRoutes)
+app.register(swaggerUI, {
+  theme: {
+    css: [
+      { filename: 'theme.css', content: new SwaggerTheme('v3').getBuffer('dark') }
+    ],
   }
-}
+})
 
-start()
+app.get('/',{
+  schema: {
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          hello: { type: 'string'},
+        },
+        require: ['hello']
+      }
+    }
+  }
+}, async () => {
+  return { hello: 'world'}
+});
+
+await app.listen({ port: PORT})

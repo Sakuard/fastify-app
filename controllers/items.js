@@ -1,11 +1,13 @@
-const { v4:uuidv4 } = require('uuid');
-let items = require('../Items');
+import { v4 as uuidv4 } from 'uuid'
+// const { v4:uuidv4 } = require('uuid');
+import items from '../Items.js';
+// let items = require('../Items');
 
-const getItems = (req, res) => {
+export const getItems = (req, res) => {
   res.send(items)
 }
 
-const getItem = (req, res) => {
+export const getItem = (req, res) => {
   const {id} = req.params;
 
   const item = items.find(item => item.id === id)
@@ -13,7 +15,7 @@ const getItem = (req, res) => {
   res.send(item)
 };
 
-const addItem = (req, res) => {
+export const addItem = (req, res) => {
   const {name} = req.body
   const item = {
     id: uuidv4(),
@@ -25,7 +27,7 @@ const addItem = (req, res) => {
   res.code(201).send(item)
 }
 
-const deleteItem = (req, res) => {
+export const deleteItem = (req, res) => {
   const {id} = req.params;
 
   items = items.filter(item => item.id !== id);
@@ -33,7 +35,7 @@ const deleteItem = (req, res) => {
   res.send({message: `Item ${id} has been removed`})
 }
 
-const updateItem = (req, res) => {
+export const updateItem = (req, res) => {
   const {id} = req.params;
   const {name} = req.body
 
@@ -45,10 +47,10 @@ const updateItem = (req, res) => {
   res.send(item)
 }
 
-module.exports = {
-  getItems,
-  getItem,
-  addItem,
-  deleteItem,
-  updateItem
-}
+// module.exports = {
+//   getItems,
+//   getItem,
+//   addItem,
+//   deleteItem,
+//   updateItem
+// }

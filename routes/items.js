@@ -1,12 +1,13 @@
-const { 
-  getItem, 
-  getItems, 
-  addItem, 
-  deleteItem,
-  updateItem 
-} = require('../controllers/items')
+import { getItem, getItems, addItem, deleteItem, updateItem } from '../controllers/items.js';
+// const { 
+//   getItem, 
+//   getItems, 
+//   addItem, 
+//   deleteItem,
+//   updateItem 
+// } = require('../controllers/items')
 
-const Item = {
+export const Item = {
   type: 'object',
   properties: {
     id: {type: 'string'},
@@ -15,7 +16,7 @@ const Item = {
 }
 
 // Options for get all items
-const getItemsOpts = {
+export const getItemsOpts = {
   schema: {
     response: {
       200: {
@@ -27,7 +28,7 @@ const getItemsOpts = {
   handler: getItems,
 }
 
-const getItemOpts = {
+export const getItemOpts = {
   schema: {
     response: {
       200: Item
@@ -36,7 +37,7 @@ const getItemOpts = {
   handler: getItem,
 }
 
-const postItemOpts = {
+export const postItemOpts = {
   schema: {
     body: {
       type: 'object',
@@ -52,7 +53,7 @@ const postItemOpts = {
   handler: addItem,
 }
 
-const deleteItemOpts = {
+export const deleteItemOpts = {
   schema: {
     response: {
       200: {
@@ -66,7 +67,7 @@ const deleteItemOpts = {
   handler: deleteItem,
 }
 
-const updateItemOpts= {
+export const updateItemOpts= {
   schema: {
     response: {
       200: Item,
@@ -75,7 +76,7 @@ const updateItemOpts= {
   handler: updateItem,
 }
 
-function itemRoutes (fastify, options, done) {
+export default function itemRoutes (fastify, options, done) {
   // Get all items
   fastify.get('/items', getItemsOpts);
   // Get single item
@@ -90,4 +91,4 @@ function itemRoutes (fastify, options, done) {
   done();
 }
 
-module.exports = itemRoutes
+// module.exports = itemRoutes
