@@ -7,4 +7,6 @@ COPY . .
 RUN npm i yarn
 RUN yarn install
 
+EXPOSE 5000:5000
+
 CMD ["yarn", "dev"]
