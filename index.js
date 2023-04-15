@@ -38,7 +38,7 @@ app.get('/',{
 // await app.listen({ port: PORT})
 const start = async() => {
   try {
-    await app.listen(PORT, '0.0.0.0');
+    await app.listen({port: PORT, host: '0.0.0.0'});
     app.log.info(`Server running on PORT:${PORT}`)
   } catch (err) {
     app.log.error(err);
