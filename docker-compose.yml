@@ -2,8 +2,8 @@ services:
   fastify-app:
     build: .
     environment:
-      - PORT=5200
+      - PORT=8100
     image: fastify-app:1.0.0
     container_name: fastify-app
     ports:
-      - "5200:5200"
+      - "8100:8100"

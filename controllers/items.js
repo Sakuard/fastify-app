@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 // const { v4:uuidv4 } = require('uuid');
-import items from '../Items.js';
+import items from '../src/Items.js';
 // let items = require('../Items');
 
 export const getItems = (req, res) => {

@@ -2,11 +2,13 @@ FROM node:16.20-alpine
 
 WORKDIR /src/dev/fastify-app/
 
-COPY . .
-
+COPY package*.json ./
 RUN npm i yarn
 RUN yarn install
 
-EXPOSE 5000:5000
+COPY ./controllers ./controllers
+COPY ./routes ./routes
+COPY ./src ./src
+COPY index.js ./
 
 CMD ["yarn", "start"]
